@@ -8,12 +8,12 @@ Built with plain **HTML, CSS and JavaScript** — no build step, no dependencies
 
 ## Roles
 
-| Role | Sections | Screenshots |
-|------|----------|-------------|
-| Driver | 12 | 32 |
-| Driver Manager | 8 | 22 |
-| Store Manager | 9 | 40 |
-| Accountant | 11 | 14 |
+| Role | Sections | 
+|------|----------|
+| Driver | 12 |
+| Driver Manager | 8 |
+| Store Manager | 9 |
+| Accountant | 11 |
 
 ## How to view it
 
