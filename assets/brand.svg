@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="QtrShoe">
+  <circle cx="256" cy="256" r="256" fill="#111111"/>
+  <text
+    x="50%"
+    y="50%"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="240"
+    font-weight="600"
+    fill="#FFFFFF"
+    text-anchor="middle"
+    dominant-baseline="central"
+  >QS</text>
+</svg>

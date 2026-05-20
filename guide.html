@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>try{history.scrollRestoration="manual";}catch(e){}</script>
+<title>Guide — QtrShoe Docs</title>
+<meta name="description" content="QtrShoe Delivery App role guide — sectioned, step-by-step documentation." />
+<link rel="icon" type="image/svg+xml" href="assets/brand.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <a class="brand" href="index.html">
+    <img class="brand-logo" src="assets/brand.svg" alt="QtrShoe" width="38" height="38" />
+    QtrShoe<span>Docs</span>
+  </a>
+  <div class="header-search">
+    <svg class="search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input id="headerSearch" type="text" placeholder="Search all guides…" autocomplete="off" />
+    <span class="search-kbd">/</span>
+    <div class="search-results in-header" id="headerResults"></div>
+  </div>
+  <div class="header-spacer"></div>
+  <a class="btn-roles" href="index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    All Roles
+  </a>
+</header>
+
+<!-- ===== LAYOUT ===== -->
+<div class="guide-layout">
+  <aside class="sidebar" id="sidebar"><!-- rendered by app.js --></aside>
+  <main class="content" id="content"><!-- rendered by app.js --></main>
+</div>
+
+<!-- ===== OVERLAY (mobile) ===== -->
+<div class="overlay" id="overlay"></div>
+
+<!-- ===== TO TOP ===== -->
+<button class="to-top" id="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <img src="" alt="Screenshot preview" />
+</div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/dims.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
