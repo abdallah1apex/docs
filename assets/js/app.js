@@ -332,7 +332,7 @@
       entries.forEach(function (en) {
         if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0, rootMargin: "0px 0px -10% 0px" });
     Array.prototype.forEach.call(els, function (el, i) {
       el.style.transitionDelay = (Math.min(i, 6) * 60) + "ms";
       io.observe(el);
@@ -434,7 +434,7 @@
       '<span class="here">' + esc(role.name) + "</span></nav>" +
       '<header class="doc-hero">' +
       '<div class="eyebrow">QtrShoe Delivery App</div>' +
-      "<h1>" + esc(role.name) + " User Guide</h1>" +
+      "<h1>" + esc(role.name) + " User Guide</h1>" +  
       '<p class="lead">' + esc(role.intro) + "</p>" +
       '<div class="doc-meta">' +
       '<span class="chip">' + icon("layers") + role.sections.length + " sections</span>" +
@@ -465,6 +465,7 @@
     initToTop();
     attachSearch(document.getElementById("headerSearch"),
       document.getElementById("headerResults"), role);
+    initHeaderSearchToggle();
     initReveal();
 
     /* scroll handling — jump to the hash, or pin to the top.
@@ -590,6 +591,25 @@
     }, { passive: true });
     btn.addEventListener("click", function () {
       window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  /* ---------- mobile header search (collapsed → expand on tap) ---------- */
+  function initHeaderSearchToggle() {
+    var wrap = document.querySelector(".header-search");
+    if (!wrap) return;
+    var input = wrap.querySelector("input");
+    wrap.addEventListener("click", function () {
+      if (!wrap.classList.contains("search-open")) {
+        wrap.classList.add("search-open");
+        input.focus();
+      }
+    });
+    document.addEventListener("click", function (e) {
+      if (!wrap.contains(e.target)) wrap.classList.remove("search-open");
+    });
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") wrap.classList.remove("search-open");
     });
   }
 
