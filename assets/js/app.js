@@ -4,6 +4,37 @@
 (function () {
   "use strict";
 
+  /* ---------- language ---------- */
+  var LANG = (function () {
+    try { return localStorage.getItem("docLang") || "en"; } catch (e) { return "en"; }
+  })();
+
+  /* Swap on-page English text for translations from I18N (see i18n.js). */
+  function translatePage(root) {
+    if (LANG === "en" || typeof window.I18N === "undefined" || !window.I18N[LANG]) return;
+    var dict = window.I18N[LANG];
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    var nodes = [], n;
+    while ((n = walker.nextNode())) nodes.push(n);
+    nodes.forEach(function (node) {
+      var raw = node.nodeValue, key = raw.trim();
+      if (!key) return;
+      var p = node.parentElement;
+      if (!p || p.tagName === "SCRIPT" || p.tagName === "STYLE" || p.closest(".notranslate")) return;
+      if (dict[key]) node.nodeValue = raw.replace(key, dict[key]);
+    });
+    Array.prototype.forEach.call(root.querySelectorAll("input[placeholder]"), function (inp) {
+      var k = inp.getAttribute("placeholder");
+      if (dict[k]) inp.setAttribute("placeholder", dict[k]);
+    });
+  }
+
+  /* Look up one string (used where text is split before render). */
+  function t(str) {
+    if (LANG === "en" || typeof window.I18N === "undefined" || !window.I18N[LANG]) return str;
+    return window.I18N[LANG][str] || str;
+  }
+
   /* ---------- SVG icon library (Lucide-style) ---------- */
   var ICONS = {
     truck: '<path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/>',
@@ -77,6 +108,7 @@
 
   /* ---------- block rendering ---------- */
   function renderListItem(item) {
+    item = t(item);
     var i = item.indexOf(" — ");
     if (i > 0) {
       return "<li><b>" + esc(item.slice(0, i)) + "</b> — " + esc(item.slice(i + 3)) + "</li>";
@@ -256,7 +288,8 @@
           return '<a class="sr-item" data-i="' + i + '" href="' + targetUrl(h) + '">' +
             '<span class="sr-ic">' + icon(h.icon) + "</span>" +
             '<span class="sr-text">' +
-            '<span class="sr-title">' + highlight(h.title, ql) + "</span>" +
+            '<span class="sr-title">' +
+            (LANG === "ml" ? esc(h.title) : highlight(h.title, ql)) + "</span>" +
             '<span class="sr-meta">' + esc(h.context) + "</span></span>" +
             '<span class="sr-badge">' + esc(h.role.name) + "</span>" +
             '<span class="sr-go">' + icon("arrow-right") + "</span></a>";
@@ -275,6 +308,7 @@
         });
         setSel(0);
       }
+      translatePage(results);
       results.classList.add("show");
     }
 
@@ -366,6 +400,7 @@
       document.getElementById("heroResults"), null);
 
     initReveal();
+    translatePage(document.body);
     return true;
   }
 
@@ -456,6 +491,8 @@
     /* crumb separator should be a chevron-right look */
     var crumbSep = content.querySelector(".crumbs svg");
     if (crumbSep) crumbSep.style.transform = "rotate(-90deg)";
+
+    translatePage(document.body);
 
     /* ---- behaviour ---- */
     initRoleSwitch();
@@ -613,8 +650,43 @@
     });
   }
 
+  /* ---------- language switch ---------- */
+  function setLang(lang) {
+    try { localStorage.setItem("docLang", lang); } catch (e) {}
+    location.reload();
+  }
+  function initLangSwitch() {
+    var sw = document.getElementById("langSwitch");
+    if (!sw) return;
+    var btn = document.getElementById("langBtn");
+    var label = document.getElementById("langCurrent");
+
+    if (label) label.textContent = LANG === "ml" ? "ML" : "EN";
+    var active = sw.querySelector('[data-lang="' + LANG + '"]');
+    if (active) active.classList.add("active");
+
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = sw.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    document.addEventListener("click", function (e) {
+      if (!sw.contains(e.target)) {
+        sw.classList.remove("open");
+        btn.setAttribute("aria-expanded", "false");
+      }
+    });
+    Array.prototype.forEach.call(sw.querySelectorAll("[data-lang]"), function (el) {
+      el.addEventListener("click", function () {
+        if (el.getAttribute("data-lang") !== LANG) setLang(el.getAttribute("data-lang"));
+        else sw.classList.remove("open");
+      });
+    });
+  }
+
   /* ---------- boot ---------- */
   document.addEventListener("DOMContentLoaded", function () {
+    initLangSwitch();
     if (typeof window.DOCS === "undefined") {
       console.error("DOCS data not loaded.");
       return;

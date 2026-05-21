@@ -29,10 +29,21 @@
     <span class="search-kbd">/</span>
     <div class="search-results in-header" id="headerResults"></div>
   </div>
+  <div class="lang-switch notranslate" id="langSwitch" translate="no">
+    <button class="lang-btn" id="langBtn" type="button" aria-label="Change language" aria-expanded="false">
+      <svg class="lang-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span class="lang-current" id="langCurrent">EN</span>
+      <svg class="lang-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="lang-menu" role="menu">
+      <button class="lang-opt" type="button" data-lang="en" role="menuitem">English</button>
+      <button class="lang-opt" type="button" data-lang="ml" role="menuitem">മലയാളം</button>
+    </div>
+  </div>
   <div class="header-spacer"></div>
   <a class="btn-roles" href="index.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-    All Roles
+    <span class="btn-roles-text">All Roles</span>
   </a>
 </header>
 
@@ -60,6 +71,7 @@
 
 <script src="assets/js/data.js"></script>
 <script src="assets/js/dims.js"></script>
+<script src="assets/js/i18n.js"></script>
 <script src="assets/js/app.js"></script>
 </body>
 </html>
